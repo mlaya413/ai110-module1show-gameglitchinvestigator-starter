@@ -24,10 +24,9 @@ It wrote the code, ran away, and now the game is unplayable.
    - Keep fixing until all tests pass!
 
 ## 📝 Document Your Experience
-
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+- **Game purpose:** Guess a randomly selected number within the chosen difficulty range using higher/lower hints and a limited number of attempts.
+- **Bugs found:** High guesses incorrectly prompted the player to go higher, and string comparisons could misclassify multi-digit guesses. New Game did not reset game state, and the score calculation could produce incorrect or negative totals.
+- **Fixes applied:** Moved game rules into `logic_utils.py`, corrected numeric comparisons and hint directions, reset game state on restart, and set scoring to award 100 for a first-guess win, decrease by 10 points per additional guess, and reach 0 when attempts are exhausted. Added pytest regression tests for these behaviors.
 
 ## 📸 Demo Walkthrough
 

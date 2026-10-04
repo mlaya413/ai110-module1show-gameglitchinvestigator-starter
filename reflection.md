@@ -44,13 +44,12 @@ To decide if a bug was really fixed, I had the AI make any test cases for any ed
 
 ## 4. What did you learn about Streamlit and state?
 
-- How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
+Streamlit reruns the Python script from top to bottom when a user interacts with a widget, such as submitting a guess. Any variables existing is recreated during a rerun, while `st.session_state` keeps values such as the secret number, attempts, and score for that entire browser session. That'swhy the game stores its progress in session state and has to reset those values explicitly when you press the button to restart the game.
 
 ---
 
 ## 5. Looking ahead: your developer habits
 
-- What is one habit or strategy from this project that you want to reuse in future labs or projects?
-  - This could be a testing habit, a prompting strategy, or a way you used Git.
-- What is one thing you would do differently next time you work with AI on a coding task?
-- In one or two sentences, describe how this project changed the way you think about AI generated code.
+- **Habits to reuse: ** I want to write small regression tests for specific bugs, then run them and manually try the workflow in the app.
+- **What I would do differently:** I would ask for and review focused tests as each bug is fixed, rather than accept a broad test set before the fixes are complete, because I realized later that I forgot to test for different issues.
+- **How this changed my view of AI-generated code:** AI can help locate bugs and suggest fixes, but its output still needs to be checked against the actual code and verified with tests. I did not accept the broad test suggestion as written because it was too large and did not directly isolate the high/low hint bug, so I narrowed the tests to assert the outcome and the corresponding hint.
