@@ -104,17 +104,18 @@ def test_get_range_for_difficulty():
     assert get_range_for_difficulty("Hard") == (1, 50)
 
 @pytest.mark.parametrize(
-    ("current_score", "outcome", "attempt_number", "expected_score"),
+    ("outcome", "attempt_number", "attempt_limit", "expected_score"),
     [
-        (0, "Too Low", 1, 0),
-        (2, "Too Low", 2, 0),
-        (0, "Too High", 1, 0),
-        (10, "Too High", 1, 5),
-        (0, "Too High", 2, 5),
-        (10, "Win", 1, 90),
+        ("Win", 1, 8, 100),
+        ("Win", 2, 8, 90),
+        ("Win", 8, 8, 30),
+        ("Too Low", 1, 8, 90),
+        ("Too High", 2, 8, 80),
+        ("Too Low", 8, 8, 0),
+        ("Win", 9, 8, 0),
     ],
 )
-def test_score_stays_nonnegative_after_guess(
-    current_score, outcome, attempt_number, expected_score
+def test_score_decreases_with_guesses_and_zeroes_after_attempt_limit(
+    outcome, attempt_number, attempt_limit, expected_score
 ):
-    assert update_score(current_score, outcome, attempt_number) == expected_score
+    assert update_score(outcome, attempt_number, attempt_limit) == expected_score

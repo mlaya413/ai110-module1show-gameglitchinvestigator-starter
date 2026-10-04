@@ -54,17 +54,17 @@ def get_guess_message(outcome: str):
     return messages[outcome]
 
 
-def update_score(current_score: int, outcome: str, attempt_number: int):
-    """Update score based on outcome and attempt number."""
-    if outcome == "Win":
-        points = max(10, 100 - 10 * (attempt_number + 1))
-        adjustment = points
-    elif outcome == "Too High":
-        adjustment = 5 if attempt_number % 2 == 0 else -5
-    elif outcome == "Too Low":
-        adjustment = -5
-    else:
-        adjustment = 0
+def update_score(outcome: str, attempt_number: int, attempt_limit: int):
+    """Score a game by guesses used: 100 first try, minus 10 per extra guess."""
+    if attempt_number > attempt_limit:
+        return 0
 
-    # FIX: Keep penalties from reducing the score below zero.
-    return max(0, current_score + adjustment)
+    if outcome == "Win":
+        return max(0, 100 - 10 * (attempt_number - 1))
+
+    if outcome in {"Too High", "Too Low"}:
+        if attempt_number >= attempt_limit:
+            return 0
+        return max(0, 100 - 10 * attempt_number)
+
+    return 0

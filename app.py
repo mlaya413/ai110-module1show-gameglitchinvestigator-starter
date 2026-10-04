@@ -114,9 +114,9 @@ if submit:
         )
 
         st.session_state.score = update_score(
-            current_score=st.session_state.score,
             outcome=outcome,
             attempt_number=st.session_state.attempts,
+            attempt_limit=attempt_limit,
         )
 
         if outcome == "Win":
